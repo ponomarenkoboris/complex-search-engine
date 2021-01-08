@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+$fontFamily: 'Roboto', sans-serif;
+$border-bottom: 1px solid #ccc;
+$inputWidth: 500px;
+$height: 30px;
+.main{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .start-logo{
+        height: 500px;
+        width: 300px;
+        background-color: #000;
+        margin-bottom: 30px;
+    }
+
+    .title-wrapper{
+
+        .title{
+            font-family: $fontFamily;
+            font-weight: bold;
+            font-size: 50px;
+            p{
+                line-height: 2rem;
+            }
+        }
+    }
+
+    .select {
+        width: 100%;
+        position: relative;
+        font-family: $fontFamily;
+        z-index: 100;
+
+        &.open {
+            .select__dropdown {
+                display: block;
+            }
+            .select__input {
+                border-bottom: none;
+            }
+            .select__backdrop{
+                display: block;
+            }
+        }
+
+        &__input {
+            width: $inputWidth;
+            height: $height;
+            border: $border-bottom;
+            border-radius: 5px;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            cursor: pointer;
+        }
+        &__dropdown {
+            display: none;
+            position: absolute;
+            border: $border-bottom;
+            border-radius: 5px;
+            top: $height;
+            left: 0;
+            right: 0; 
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 2px, 3px, 5px, rgba(0, 0, 0, .5); // сделать тень
+        }
+        &__list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        &__backdrop {
+            position: fixed;
+            display: none;
+            z-index: -1;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: transparent;
+        }
+        &__item {
+            padding: 1rem;
+            border-bottom: $border-bottom;
+            &.selected {
+                background-color: bisque;
+            }
+            &:hover {
+                background-color: #eee;
+                cursor: pointer;
+                transition: .150 background-color ease-in;
+            }
+        }
+    }
+
+    #search {
+        width: 500px;
+        height: 20px;
+        padding: 5px 10px;
+        border: none;
+        border-bottom: $border-bottom;
+        outline: none;
+    }
+}
