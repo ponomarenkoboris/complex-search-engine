@@ -1,13 +1,18 @@
 const getTemaplte = (data = [], placeholder, selectedId) => {
     let defaultText = placeholder || '&#129335; &#129310; &#128064; !ERROR!';
+    
     const items = data.map(item => {
         let defaultItemClass = '';
+        let iconURL = item.icon;
         if (item.id === selectedId) {
             defaultText = item.value;
             defaultItemClass = 'selected';
         }
         return `
-            <li class="select__item ${defaultItemClass}"  data-type="item" data-id="${item.id}">${item.value}</li>
+            <li class="select__item ${defaultItemClass}"  data-type="item" data-id="${item.id}">
+                <p>${item.value}</p>
+                <img class="select__item__image" src="${iconURL}">
+            </li>
         `
     })
     return `
@@ -37,7 +42,7 @@ export class Select {
     constructor(selector, options) {
         this.$elem = document.querySelector(selector);
         this.options = options;
-        this.selectedId = options.selectedId; // сюда будет передваться id выбарнного в прошлый раз поисковика
+        this.selectedId = options.selectedId;
         this._render();
         this._setup();
     }

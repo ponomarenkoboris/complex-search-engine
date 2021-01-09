@@ -4,6 +4,7 @@ $border-bottom: 1px solid #ccc;
 $inputWidth: 500px;
 $height: 30px;
 .main{
+
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -11,6 +12,7 @@ $height: 30px;
     align-items: center;
 
     .start-logo{
+        display: none;
         height: 500px;
         width: 300px;
         background-color: #000;
@@ -30,6 +32,7 @@ $height: 30px;
     }
 
     .select {
+
         width: 100%;
         position: relative;
         font-family: $fontFamily;
@@ -58,7 +61,9 @@ $height: 30px;
             justify-content: space-between;
             padding: 0 1rem;
             cursor: pointer;
+
         }
+
         &__dropdown {
             display: none;
             position: absolute;
@@ -69,13 +74,15 @@ $height: 30px;
             right: 0; 
             max-height: 200px;
             overflow-y: auto;
-            box-shadow: 2px, 3px, 5px, rgba(0, 0, 0, .5); // сделать тень
+            box-shadow: 2px 3px 5px rgba(0, 0, 0, .5); // сделать тень
         }
+
         &__list {
             padding: 0;
             margin: 0;
             list-style: none;
         }
+
         &__backdrop {
             position: fixed;
             display: none;
@@ -87,11 +94,21 @@ $height: 30px;
             background: transparent;
         }
         &__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 1rem;
             border-bottom: $border-bottom;
-            &.selected {
-                background-color: bisque;
+
+            &__image {
+                width: 40px;
+                height: 40px;
             }
+
+            &.selected {
+                background-color: #0f2bf7;
+            }
+
             &:hover {
                 background-color: #eee;
                 cursor: pointer;
@@ -100,12 +117,73 @@ $height: 30px;
         }
     }
 
-    #search {
-        width: 500px;
-        height: 20px;
-        padding: 5px 10px;
-        border: none;
-        border-bottom: $border-bottom;
-        outline: none;
+    .search {
+        
+        position: relative;
+        top: 160px;
+        width: $inputWidth;
+
+        &__input {
+            display: block;
+            width: $inputWidth;
+            height: 20px;
+            padding: 5px 10px;
+            border: none;
+            border-bottom: $border-bottom;
+            outline: none;
+            font-family: $fontFamily;
+            font-size: 15px;
+            margin-bottom: 50px;
+
+            &:focus {
+                width: 300px; // изменить значение width
+                margin: 0 auto;
+                margin-bottom: 50px;
+                transition: .3s ease-in-out;
+            }
+        }
+
+        &__result {
+            width: 500px;
+
+            .card{
+
+                display: flex;
+                flex-direction: column;
+                padding: 20px 20px;
+                border: $border-bottom;
+                border-radius: 10px;
+                box-shadow: 2px 3px 5px rgba(0, 0, 0, .5);
+                margin-bottom: 50px;
+
+                .card-action {
+
+                    &-image {
+                        display: flex;
+                        flex-direction: column; 
+                    }
+
+                    &__title {
+                        font-family: $fontFamily;
+                        font-weight: 400;
+                        margin-top: 10px;
+                        margin-bottom: 50px;
+                    }
+
+                    &__link{
+                        font-family: $fontFamily;
+                        font-weight: 400;
+                        text-decoration: none;
+                        color: #000;
+
+                        &__site-name {
+                            &:hover {
+                                color:  #0f2bf7;
+                            }
+                        }  
+                    }
+                }
+            }
+        }
     }
 }
