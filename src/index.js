@@ -8,7 +8,7 @@ import './images/instagram.svg';
 import { Select } from './selector.js';
 import { EMPTY, fromEvent } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged, switchMap, mergeMap, tap, catchError, filter } from 'rxjs/operators';
-import { ajax } from 'rxjs/ajax';
+import { fromFetch } from 'rxjs/fetch';
 
 let SEARCH_URL = '' ;
 let link_name = '';
@@ -18,9 +18,9 @@ const select = new Select('#select', {
     // selectedId: '4',
     data: [
     {id: '1', value: 'GitHub', icon: './images/github.svg', url: 'https://api.github.com/search/users?q='},
-    {id: '2', value: 'Instagram', icon: './images/instagram.svg', url: ''},
+    {id: '2', value: 'Instagram', icon: './images/instagram.svg', url: 'https://api.instagram.com/'},
     {id: '3', value: 'VK', icon: './images/vk.svg', url: 'https://vk.com/'},
-    {id: '4', value: 'Facebook', icon: './images/facebook.svg', url: ''},
+    {id: '4', value: 'Facebook', icon: './images/facebook.svg', url: 'https://graph.facebook.com/'},
     {id: '5', value: 'LinkedIN', icon: './images/linkedin.svg', url: ''},
     {id: '6', value: 'Telegram', icon: './images/telegram.svg', url: ''}
   ],
@@ -41,8 +41,15 @@ const stream$ = fromEvent(search, 'input')
         distinctUntilChanged(),
         tap(() => result.innerHTML = ''),
         filter(val => val.trim()),
-        switchMap(val => ajax.getJSON(SEARCH_URL + val).pipe(
-            catchError(err => EMPTY)
+        switchMap(val => fromFetch(SEARCH_URL + val).pipe(
+            switchMap(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    console.log('Uncorrect URL');
+                    catchError(err => EMPTY);
+                }
+            })
         )),
         map(res => res.items),
         mergeMap(items => items)
