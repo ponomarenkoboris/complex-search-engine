@@ -4,3 +4,6 @@ node_modules/
 .env
 package-lock.json
 images
+
+dist
+dist/
