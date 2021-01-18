@@ -1,12 +1,9 @@
-const rp = require('request-promise');
-const cheerio = require('cheerio');
-const Table = require('cli-table');
+const request = require('request-promise');
 
 let users = [];
 
 const option = {
     url: 'https://vk.com/borisponomarenko', // paste client input 
-    html: true
 };
 
 const getUserDataFromHTML = (userPage) => {
@@ -21,7 +18,7 @@ const getUserDataFromHTML = (userPage) => {
     console.log('userImage: ', userImage);
 };
 
-rp(option)
+request(option.url)
     .then((data) => {
         getUserDataFromHTML(data);
     })

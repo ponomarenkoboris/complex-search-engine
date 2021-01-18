@@ -4,20 +4,25 @@
   "description": "",
   "main": "app.dev.js",
   "scripts": {
-    "start": "webpack --mode development && nodemon ./server/app.dev",
-    "prod": "webpack --mode production"
+    "vuetest": "vue-cli-service serve",
+    "dev": "concurrently \"webpack --mode development\" \"webpack --watch\" \"nodemon ./server/server.dev\"",
+    "prod": "webpack --mode production && nodemon ./server/server.prod"
   },
   "keywords": [
     "rxjs",
     "JS",
     "JavaScript",
     "search",
-    "engine"
+    "engine",
+    "express"
   ],
   "author": "Boris Ponomarenko <borisponomarenko.dmi@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^5.3.0",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^3.2.0",
@@ -30,6 +35,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "nodemon": "^2.0.7",
-    "rxjs": "^6.6.3"
+    "request-promise": "^4.2.6",
+    "rxjs": "^6.6.3",
+    "vue": "^3.0.5"
   }
 }
