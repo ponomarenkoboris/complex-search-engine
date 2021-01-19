@@ -6,7 +6,7 @@
   "scripts": {
     "vuetest": "vue-cli-service serve",
     "dev": "concurrently \"webpack --mode development\" \"webpack --watch\" \"nodemon ./server/server.dev\"",
-    "prod": "webpack --mode production && nodemon ./server/server.prod"
+    "prod": "concurrently \"webpack --mode production\" \"nodemon ./server/server.dev\""
   },
   "keywords": [
     "rxjs",
@@ -19,13 +19,18 @@
   "author": "Boris Ponomarenko <borisponomarenko.dmi@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
+    "babel-minify-webpack-plugin": "^0.3.1",
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^3.0.0",
     "concurrently": "^5.3.0",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^5.0.0",
     "sass": "^1.32.2",
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",

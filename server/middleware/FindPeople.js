@@ -14,6 +14,7 @@ async function findPeople(req, res) {
 
     if (req.params.socialNetwork === 'VK') {
         const fetchData = await vkParser(req, res);
+        console.log('fetchData: ', fetchData);
         return fetchData;
     }
 

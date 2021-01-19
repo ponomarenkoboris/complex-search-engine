@@ -6,10 +6,16 @@ const vkParser = async (req, res) => {
     };
 
     const getUserDataFromHTML = (userPage) => {
+
         let regExpUsername = /(?!>)([^><]+)(?=<\/title>)/;
-        let regExpImage = /<img width="1" height="1" src="\w+:+.+/;
+        let regExpImage = /<img src="\w+:+.+" class="wi_img" alt="/;
         let userName = userPage.match(regExpUsername)[0].split(' |')[0];
-        let userImage = userPage.match(regExpImage)[0].split('src="')[1].split('"')[0];
+        let userImage;
+        try {
+            userImage = userPage.match(regExpImage)[0].split('src="')[1].split('"')[0];
+        } catch(e) {
+            userImage = 'undefined';
+        }
 
         if (userName && userImage) {
             return {

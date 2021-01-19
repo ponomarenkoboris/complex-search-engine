@@ -61,5 +61,5 @@ function sendReq(e) {
   );      
 }; 
 
-sendReq = debounce(sendReq, 200);
+sendReq = debounce(sendReq, 500);
 search.addEventListener('keydown', sendReq);
