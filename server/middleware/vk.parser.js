@@ -1,27 +1,37 @@
 const request = require('request-promise');
 
-let users = [];
+const vkParser = async (req, res) => {
+    const options = {
+        uri: `https://www.vk.com/${req.params.value}`
+    };
 
-const option = {
-    url: 'https://vk.com/borisponomarenko', // paste client input 
+    const getUserDataFromHTML = (userPage) => {
+        let regExpUsername = /(?!>)([^><]+)(?=<\/title>)/;
+        let regExpImage = /<img width="1" height="1" src="\w+:+.+/;
+        let userName = userPage.match(regExpUsername)[0].split(' |')[0];
+        let userImage = userPage.match(regExpImage)[0].split('src="')[1].split('"')[0];
+
+        if (userName && userImage) {
+            return {
+                login: userName,
+                avatar_url: userImage,
+                html_url: options.uri
+            }
+        } else {
+            return null;
+        }
+        
+    }
+    
+    const result = await request(options)
+        .then(response => {
+            const data = getUserDataFromHTML(response);
+            return data;
+
+        })
+        .catch(err => console.log(err.message));
+    
+    return result;
 };
 
-const getUserDataFromHTML = (userPage) => {
-    console.log('userPage start: ' + userPage + ' : end userPage');
-    
-    const redExpUsername = /<meta property="og:description" content="\w+ \w+/;
-    const regExpImage = /<img width="1" height="1" src="\w+:+.+/;
-    
-    let userName = userPage.match(redExpUsername)[0].split('content="')[1];
-    console.log('userName: ', userName);
-    let userImage = userPage.match(regExpImage)[0].split('src="')[1].split('"')[0];
-    console.log('userImage: ', userImage);
-};
-
-request(option.url)
-    .then((data) => {
-        getUserDataFromHTML(data);
-    })
-    .catch(err => {
-        console.log('ERR: ', err);
-    });
+module.exports = vkParser;

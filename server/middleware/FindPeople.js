@@ -1,4 +1,5 @@
 const githubParser = require('./github.parser');
+const vkParser = require('./vk.parser');
 
 async function findPeople(req, res) {
     
@@ -12,7 +13,8 @@ async function findPeople(req, res) {
     }
 
     if (req.params.socialNetwork === 'VK') {
-
+        const fetchData = await vkParser(req, res);
+        return fetchData;
     }
 
     if (req.params.socialNetwork === 'Facebook') {

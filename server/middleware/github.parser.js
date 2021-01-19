@@ -11,14 +11,11 @@ const githubParser = async (req, res) => {
     
     const result = await request(options)
         .then(response => {
-            if (response.ok || response) {
-                return response;
-            }
+            return response;
         })
         .catch(err => {
             console.log(err.message);
         });
-
     return result
 };
 module.exports = githubParser;
