@@ -6,6 +6,9 @@ export default createStore({
       text: 'Choose network!',
       default: true
     },
+    search: {
+      value: ''
+    },
     socials: [
       {id: '1', value: 'GitHub', icon: '../../public/images/github.svg'},
       {id: '2', value: 'Instagram', icon: '../../public/images/instagram.svg'},
@@ -16,8 +19,12 @@ export default createStore({
     ],
   }),
   mutations: {
-    updatePlaceholder(selected) {
-      this.placeholder = selected;
+    setNewPlaceholder(state, payload){
+      state.placeholder.default = false;
+      state.placeholder.text = payload;
+    }, 
+    setSearchValue(state, payload) {
+      state.search.value = payload;
     }
   }
 

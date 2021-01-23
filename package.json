@@ -5,16 +5,17 @@
   "main": "app.dev.js",
   "scripts": {
     "vuetest": "vue-cli-service serve",
-    "dev": "concurrently \"webpack --mode development\" \"webpack --watch\" \"nodemon ./server/server.dev\"",
+    "dev": "concurrently \"nodemon ./server/server.dev\"",
     "prod": "concurrently \"webpack --mode production\" \"nodemon ./server/server.dev\""
   },
   "keywords": [
-    "rxjs",
     "JS",
     "JavaScript",
     "search",
     "engine",
-    "express"
+    "express",
+    "vue",
+    "vuex"
   ],
   "author": "Boris Ponomarenko <borisponomarenko.dmi@gmail.com>",
   "license": "ISC",
