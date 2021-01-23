@@ -1,7 +1,7 @@
 <template>
     <section class="search-wrapper">
         <section id="search">
-            <input type="text" :class="showField" id="search" :placeholder="placeholder" @keyup="deboucedRequest">
+            <input type="text" :class="showField" id="search" :placeholder="placeholder" @keyup="sendReq">
             <div class="rearch__result" id="result"></div>
         </section>
         <section class="cards-wrapper">
@@ -21,8 +21,8 @@
 <script>
 import { useStore } from 'vuex';
 import { computed } from 'vue';
-import debounce from '../helpers/debounce';
-
+import _ from 'lodash';
+// server url: `http://localhost:3000/user/${this.searchValue}/${event.target.value}`
 export default {
     name: 'Search',
     setup() {
@@ -34,29 +34,23 @@ export default {
         return {
             placeholder,
             showField,
-            searchValue
+            searchValue,
         }
     },
     methods: {
-        fetchedReq(event) {
+        sendReq: _.debounce(async (event) => {
             try {
-                if (event.target.value === '') {
-                    return;
-                }
-                console.log(`http://localhost:3000/user/${this.searchValue}/${event.target.value}`);
+                console.log(event.target.value);
+                console.log(this.searchValue);
                 // const answer = await fetch(`http://localhost:3000/user/${this.searchValue}/${event.target.value}`);
-                // const data = await answer.json(); 
+                // const data = await answer.json();
                 // console.log('data: ', data);
-                
             } catch (error) {
-                console.log('ERROR: ', error.message);
+                console.error('ERROR!!!: ', error.message);
             }
-        },
-        deboucedRequest(e){
-            const delay = 3000;
-            return debounce(this.fetchedReq(e), delay);
-        }
+        }, 3000) 
     }
+    
 }
 </script>
 <style lang="scss" scoped>
@@ -89,8 +83,6 @@ export default {
     outline: none;
     font-size: 15px;
 }
-
-
 .card {
 
     margin-top: 70px;
