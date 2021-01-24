@@ -60,10 +60,9 @@ export default {
 $border: 1px solid #ccc;
 #selector {
     width: 100%;
-    // position: relative;
+    position: relative;
     z-index: 100;
     height: 250px;
-    z-index: 100;
 
     .select__social {
         width: 500px;
@@ -93,6 +92,11 @@ $border: 1px solid #ccc;
             padding: 1rem;
             border-bottom: $border;
             background-color: #ffffff;
+
+            .network__img{
+                width: 46px;
+                height: 46px;
+            }
 
             &:hover {
                 background-color: #eee;
