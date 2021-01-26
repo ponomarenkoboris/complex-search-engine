@@ -1,6 +1,6 @@
 const request = require('request-promise');
 
-const vkParser = async (req, res) => {
+const vkParser = async (req) => {
     const options = {
         uri: `https://www.vk.com/${req.params.value}`
     };
@@ -18,11 +18,13 @@ const vkParser = async (req, res) => {
         }
 
         if (userName && userImage) {
-            return {
-                login: userName,
-                avatar_url: userImage,
-                html_url: options.uri
-            }
+            return [
+                {
+                    login: userName,
+                    avatar_url: userImage,
+                    html_url: options.uri
+                }
+            ]
         } else {
             return null;
         }
@@ -33,9 +35,10 @@ const vkParser = async (req, res) => {
         .then(response => {
             const data = getUserDataFromHTML(response);
             return data;
-
         })
-        .catch(err => console.log(err.message));
+        .catch(err => {
+            return JSON.stringify({message: 'This data is not correct.'});
+        });
     
     return result;
 };

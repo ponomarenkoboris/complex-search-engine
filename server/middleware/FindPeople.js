@@ -1,10 +1,11 @@
-const githubParser = require('./github.parser');
-const vkParser = require('./vk.parser');
+const githubParser = require('../parsers/github.parser');
+const vkParser = require('../parsers/vk.parser');
+const twitterParser = require('../parsers/twitter.parser');
 
-async function findPeople(req, res) {
+async function findPeople(req) {
     
     if (req.params.socialNetwork === 'GitHub') {
-        const fetchData = await githubParser(req, res);
+        const fetchData = await githubParser(req);
         return fetchData;
     }
 
@@ -12,9 +13,13 @@ async function findPeople(req, res) {
 
     }
 
+    if (req.params.socialNetwork === 'Twitter') {
+        const fetchData = await twitterParser(req);
+        return fetchData;
+    }
+
     if (req.params.socialNetwork === 'VK') {
-        const fetchData = await vkParser(req, res);
-        console.log('fetchData: ', fetchData);
+        const fetchData = await vkParser(req);
         return fetchData;
     }
 
@@ -26,9 +31,7 @@ async function findPeople(req, res) {
 
     }
 
-    if (req.params.socialNetwork === 'Telegram') {
-
-    }
+    
 
 }
 module.exports = findPeople;

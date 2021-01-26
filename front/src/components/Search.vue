@@ -5,21 +5,8 @@
             <div class="rearch__result" id="result"></div>
         </section>
 
-         <section v-if="selectedSocial === 'VK' && getCards" class="cards-wrapper">
-            <section class="card">
-                <div class="card-icon">
-                    <img class="card-img" :src="cards.avatar_url" alt="user_avatar">
-                </div>
-                <div class="card-action">
-                    <span class="card-action__title">{{ cards.login }}</span>
-                    <hr>
-                    <a :href="cards.html_url" class="card-action__link">Open in {{ selectedSocial }}</a>
-                </div>
-            </section>
-        </section>
-
-        <section v-if="selectedSocial === 'GitHub' && getCards" class="cards-wrapper">
-            <section v-for="card in cards" :key="card.login" class="card">
+        <section v-if="getCards" class="cards-wrapper">
+            <section v-for="card of cards" :key="card.login" class="card">
                 <div class="card-icon">
                     <img class="card-img" :src="card.avatar_url" alt="user_avatar">
                 </div>
@@ -30,6 +17,10 @@
                 </div>
             </section>
         </section>
+
+        <!-- <section v-if="getCards && !cards.length " class="not-found">
+            <span>User not found</span>
+        </section> -->
         
     </section>
 </template>
@@ -47,27 +38,21 @@ export default {
         const selectedSocial = computed(() => store.state.search.value); 
         const cards = reactive({});  
         let getCards = ref(false);
+        let counter = 0;
 
         const debouncedSendReq = _.debounce(async (event) => {
-            if (event.target.value === '' && event.target.value === ' ') return;
+            if (event.target.value === '' && event.target.value === ' ') return getCards.value = false;
+            if (Object.entries(cards).length) for (let key in cards) delete cards[key];
             try {
                 const response = await fetch(`http://localhost:3000/api.user/${selectedSocial.value}/${event.target.value}`);
                 const data = await response.json();
-                if (selectedSocial.value === 'GitHub') {
-                    for (let i = 0; i < data.items.length; i++) {
-                        cards[i] = data.items[i];
-                        cards[i].login = data.items[i].login;
-                        cards[i].html_url = data.items[i].html_url;
-                        cards[i].avatar_url = data.items[i].avatar_url;
-                    }
-                    getCards.value = true;
+                
+                for (let item of data) {
+                    cards[counter] = {...item};
+                    counter++;
                 }
-                if (selectedSocial.value === 'VK') {
-                    cards.login = data.login;
-                    cards.html_url = data.html_url;
-                    cards.avatar_url = data.avatar_url;
-                    getCards.value = true;
-                }
+                counter = 0;
+                getCards.value = true;
             } catch (error) {
                 console.error('!!ERROR!! : ', error.message);
             }

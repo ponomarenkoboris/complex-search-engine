@@ -8,18 +8,14 @@ const app = express();
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     next();
-})
+});
 
 app.use(express.static(path.resolve('dist')));
 
-// app.get('/', (req, res) => {
-//     res.sendFile('index');
-// });
+// temporary full link: http://localhost:3000/api.users/:socialNetwork/:value 
 
-
-app.get('/user/:socialNetwork/:value', async (req, res) => {
-    console.log('request sended');
-    const data = await findPeople(req, res);
+app.get('/api.user/:socialNetwork/:value', async (req, res) => {
+    const data = await findPeople(req);
     res.send(data);
 });
 

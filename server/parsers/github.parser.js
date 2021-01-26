@@ -1,6 +1,6 @@
 const request = require('request-promise');
 
-const githubParser = async (req, res) => {
+const githubParser = async (req) => {
     
     const options = {
         uri: `https://api.github.com/search/users?q=${req.params.value}`,
@@ -11,10 +11,11 @@ const githubParser = async (req, res) => {
     
     const result = await request(options)
         .then(response => {
-            return response;
+            let answer = JSON.parse(response);
+            return JSON.stringify(answer.items);
         })
         .catch(err => {
-            console.log(err.message);
+            return JSON.stringify({ message: 'This data is not correct.' });
         });
     return result
 };
