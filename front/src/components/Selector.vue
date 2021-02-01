@@ -106,4 +106,9 @@ $border: 1px solid #ccc;
         }
     }
 }
+@media(max-width: 683px) {
+    .select__social {
+        max-width: 200px;
+    }
+}
 </style>

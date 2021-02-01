@@ -134,4 +134,18 @@ export default {
         }
     }
 }
+@media(max-width: 683px){
+    .search__input-open{
+        max-width: 200px;
+    }
+}
+@media(max-width: 653px) {
+    .search-wrapper {
+        max-width: 200px;
+        .card-img {
+            width: 200px;
+            height: 200px;
+        }
+    }
+}
 </style>
