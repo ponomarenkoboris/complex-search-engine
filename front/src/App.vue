@@ -26,8 +26,8 @@ export default {
     const store = useStore();
     const title = ref('FindFast');
 
-    function closeSelector() {
-      store.commit('closeSelectorGlobal');
+    function closeSelector(e) {
+      if (!e.target.closest('#selector')) store.commit('closeSelectorGlobal');
     }
     return {
       title,

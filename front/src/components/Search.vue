@@ -44,7 +44,7 @@ export default {
             if (event.target.value === '' && event.target.value === ' ') return getCards.value = false;
             if (Object.entries(cards).length) for (let key in cards) delete cards[key];
             try {
-                const response = await fetch(`http://localhost:3000/api.user/${selectedSocial.value}/${event.target.value}`);
+                const response = await fetch(`https://obscure-badlands-63489.herokuapp.com/api.user/${selectedSocial.value}/${event.target.value}`);
                 const data = await response.json();
                 
                 for (let item of data) {
