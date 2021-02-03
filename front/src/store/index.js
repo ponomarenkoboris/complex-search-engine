@@ -9,6 +9,7 @@ export default createStore({
     search: {
       value: ' '
     },
+    isOpen: false,
     socials: [
       {id: '1', value: 'GitHub', icon: require('../assets/images/github.svg')},
       {id: '3', value: 'VK', icon: require('../assets/images/vk.svg')},
@@ -25,6 +26,12 @@ export default createStore({
     }, 
     setSearchValue(state, payload) {
       state.search.value = payload;
+    },
+    closeSelectorGlobal(state) {
+      state.isOpen = false;
+    },
+    selectorStatus(state) {
+      state.isOpen = !state.isOpen;
     }
   }
 

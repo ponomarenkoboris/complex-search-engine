@@ -1,5 +1,5 @@
 <template>
-  <section id="main">
+  <section id="main" @click="closeSelector">
     <section class="start-logo">
       <img src="./assets/logo.png" alt="logo">
     </section>
@@ -18,12 +18,22 @@
 <script>
 import Selector from './components/Selector.vue';
 import Search from './components/Search.vue';
-
+import { useStore } from 'vuex';
+import { ref } from 'vue';
 export default {
   name: 'App',
-  data: () => ({
-    title: 'FindFast'
-  }),
+  setup() {
+    const store = useStore();
+    const title = ref('FindFast');
+
+    function closeSelector() {
+      store.commit('closeSelectorGlobal');
+    }
+    return {
+      title,
+      closeSelector
+    }
+  },
   components: {
     Selector,
     Search

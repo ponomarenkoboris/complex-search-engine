@@ -23,6 +23,8 @@ export default {
     setup() {
         const store = useStore();
         const socials = computed(() => store.state.socials);
+        const isOpen = computed(() => store.state.isOpen);
+        const arrow = computed(() => isOpen.value ? 'fa fa-chevron-down' : ' fa fa-chevron-up');
         const placeholder = computed(() => store.state.placeholder.text);
 
         function updatePlaceholder(item) {
@@ -33,27 +35,20 @@ export default {
             store.commit('setSearchValue', item)
         }
 
+        function showHideDropdown() {
+            setTimeout(() => store.commit('selectorStatus'), 0);
+        }
+
         return {
             socials,
             placeholder,
             updatePlaceholder,
+            showHideDropdown,
             setValue,  
+            isOpen,
+            arrow
         }
     },
-    data: () => ({
-        isOpen: false
-    }),
-    computed: {
-        arrow() {
-           let arrow = this.isOpen ? 'fa fa-chevron-down' : ' fa fa-chevron-up';
-           return arrow
-        }
-    },
-    methods: {
-        showHideDropdown() {
-            this.isOpen = !this.isOpen;
-        }
-    }
 }
 </script>
 <style lang="scss" scoped>
